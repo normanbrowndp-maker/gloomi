@@ -1,0 +1,46 @@
+{
+  "name": "gloomi-social",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,magenta \"corepack pnpm --filter @gloomi/api dev\" \"corepack pnpm --filter @gloomi/web dev\"",
+    "dev:api": "corepack pnpm --filter @gloomi/api dev",
+    "dev:web": "corepack pnpm --filter @gloomi/web dev",
+    "dev:worker": "corepack pnpm --filter @gloomi/api dev:worker",
+    "build": "corepack pnpm -r build",
+    "build:api": "corepack pnpm --filter @gloomi/api build",
+    "build:web": "corepack pnpm --filter @gloomi/web build",
+    "build:worker": "corepack pnpm --filter @gloomi/api build:worker",
+    "db:generate": "corepack pnpm exec prisma generate --schema prisma/schema.prisma --config prisma.config.ts",
+    "db:migrate": "corepack pnpm exec prisma migrate deploy --schema prisma/schema.prisma --config prisma.config.ts",
+    "db:seed": "corepack pnpm exec prisma db seed",
+    "db:demo": "node apps/api/scripts/seed-demo.mjs",
+    "test:media:local": "node apps/api/scripts/test-local-media.mjs",
+    "test:browser:real": "node apps/api/scripts/test-local-media.mjs --browser",
+    "lint": "corepack pnpm -r lint",
+    "typecheck": "corepack pnpm -r typecheck",
+    "test": "corepack pnpm --filter @gloomi/api test",
+    "test:api": "corepack pnpm --filter @gloomi/api test",
+    "test:integration": "corepack pnpm --filter @gloomi/api test:integration"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "dotenv": "16.4.5",
+    "prisma": "^6.4.1",
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "@nestjs/core",
+      "bcrypt"
+    ]
+  }
+}
